@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import "./App.css";
 import ContactForm from "./components/ContactForm";
 import ContactList from "./components/ContactList";
@@ -8,9 +9,8 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://www.raydelto.org/agenda.php")
-      .then((res) => res.json())
-      .then((data) => setContactos(data))
+    axios.get("https://www.raydelto.org/agenda.php")
+      .then((res) => setContactos(res.data))
       .catch(() => setContactos([]))
       .finally(() => setLoading(false));
   }, []);
